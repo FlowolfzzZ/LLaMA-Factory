@@ -27,6 +27,8 @@ from llamafactory.extras.packages import is_vllm_available
 from llamafactory.hparams import get_infer_args
 from llamafactory.model import load_tokenizer
 
+import os
+
 
 if is_vllm_available():
     from vllm import LLM, SamplingParams
@@ -186,6 +188,7 @@ def vllm_infer(
         gc.collect()
 
     # Write all results at once outside the loop
+    os.makedirs(os.path.dirname(save_name), exist_ok=True)
     with open(save_name, "w", encoding="utf-8") as f:
         for text, pred, label in zip(all_prompts, all_preds, all_labels):
             f.write(json.dumps({"prompt": text, "predict": pred, "label": label}, ensure_ascii=False) + "\n")

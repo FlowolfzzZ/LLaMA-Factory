@@ -40,6 +40,7 @@ def main():
     from .api.app import run_api
     from .chat.chat_model import run_chat
     from .eval.evaluator import run_eval
+    # from .predict.predictor import run_predict
     from .extras import logging
     from .extras.env import VERSION, print_env
     from .extras.misc import find_available_port, get_device_count, is_env_enabled, use_ray
@@ -65,6 +66,7 @@ def main():
         "chat": run_chat,
         "env": print_env,
         "eval": run_eval,
+        # "predict": run_predict,
         "export": export_model,
         "train": run_exp,
         "webchat": run_web_demo,

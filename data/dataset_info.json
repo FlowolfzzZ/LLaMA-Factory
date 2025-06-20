@@ -1,4 +1,34 @@
 {
+  "alpaca_cleaned": {
+    "file_name": "alpaca-cleaned/alpaca_data_cleaned.json"
+  },
+  "gsm8k": {
+    "file_name": "gsm8k/main/train-00000-of-00001.json"
+  },
+  "numinamath-cot": {
+    "file_name": "NuminaMath-CoT/data/train-00000-of-00005-sample-10000.json"
+  },
+  "health_care_magic": {
+    "file_name": "HealthCareMagic-100k-sample-10000.json"
+  },
+  "saferpaca": {
+    "file_name": "safety_only_data_Instructions.json"
+  },
+  "directharm4": {
+    "file_name": "DirectHarm4/test.json",
+    "columns": {
+      "prompt": "instruction"
+    }
+  },
+  "hex-phi": {
+    "file_name": "HEx-PHI/test.json",
+    "columns": {
+      "prompt": "instruction"
+    }
+  },
+  "safetycheck": {
+    "file_name": "generated_predictions/tmp/llama3-8b-directharm4_ans.jsonl"
+  },
   "identity": {
     "file_name": "identity.json"
   },
@@ -714,5 +744,6 @@
       "prompt": "content"
     },
     "folder": "python"
-  }
-}
+  },
+  "directharm4-safealign_alpaca_cleaned_saferpaca_w_08_02": {
+    "file_name": 

@@ -177,3 +177,15 @@ wandb/
 swanlog/
 generated_predictions.jsonl
 predictions_score.json
+
+slurm-logs/
+slurm-*.err
+slurm-*.out
+saves/
+data/DirectHarm4
+data/directharm4_ans
+data/generated_predictions
+data/gsm8k
+data/HEx-PHI
+data/NuminaMath-CoT
+data/PubMedQA
