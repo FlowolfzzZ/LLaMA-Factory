@@ -1158,10 +1158,9 @@ register_template(
 #     replace_jinja_template=False
 # )
 
-
 register_template(
     name="llama3",
-    format_user=StringFormatter(slots=["Q: {{content}}", {"eos_token"}, "\nA:"]),
+    format_user=StringFormatter(slots=["Human: {{content}}", {"eos_token"}, "\nAssistant:"]),
     format_assistant=StringFormatter(slots=["{{content}}", {"eos_token"}, "\n"]),
     format_system=StringFormatter(slots=["System: {{content}}", {"eos_token"}, "\n"]),
     replace_jinja_template=True,

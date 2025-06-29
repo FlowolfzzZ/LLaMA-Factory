@@ -24,13 +24,35 @@ def update_json_field(file_path, field, new_value):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
+def count_labels(jsonl_path):
+    safe_count = 0
+    unsafe_count = 0
+
+    with open(jsonl_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                data = json.loads(line)
+                predict = data.get('predict', '')
+                if predict.startswith('safe'):
+                    safe_count += 1
+                elif predict.startswith('unsafe'):
+                    unsafe_count += 1
+            except json.JSONDecodeError:
+                print("Warning: Skipping invalid JSON line")
+
+    print(f"Safe count: {safe_count}")
+    print(f"Unsafe count: {unsafe_count}")
+
 if __name__ == "__main__":
     from scripts.vllm_infer import vllm_infer
 
     parser = argparse.ArgumentParser(description="Run inference with vLLM.")
     parser.add_argument("--model_name_or_path", type=str, required=True, help="Path to the model or model name.")
     parser.add_argument("--adapter_name_or_path", type=str, default=None, help="Path to the adapter model.")
-    parser.add_argument("--template", type=str, default="llama3", help="Template to use for generation.")
+    parser.add_argument("--template", type=str, default="default", help="Template to use for generation.")
     parser.add_argument("--dataset", type=str, default="directharm4", help="Name of the dataset to use.")
     parser.add_argument("--repetition_penalty", type=float, default=1.0, help="Repetition penalty for generation.")
 
@@ -62,11 +84,13 @@ if __name__ == "__main__":
     print(f"Processed data saved to {output_file}")
 
     dataset = f"{args.dataset}-{args.adapter_name_or_path.split('/')[-1]}"
-    update_json_field("data/dataset_info.json", dataset, {"file_name": output_file})
+    update_json_field("data/dataset_info.json", dataset, {"file_name": str(output_file).replace("data/", "")})
 
+    save_name = f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}/{args.adapter_name_or_path.split('/')[-1]}.jsonl"
     vllm_infer(
         model_name_or_path="/home/lizijian/Models/Llama-Guard-3-8B",
         template="llama3_safetycheck",
         dataset=dataset,
-        save_name=f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}/{args.adapter_name_or_path.split('/')[-1]}.jsonl",
+        save_name=save_name,
     )
+    count_labels(save_name)
