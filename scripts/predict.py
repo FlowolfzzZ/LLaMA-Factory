@@ -57,7 +57,10 @@ if __name__ == "__main__":
     parser.add_argument("--repetition_penalty", type=float, default=1.0, help="Repetition penalty for generation.")
 
     args = parser.parse_args()
-    save_name = f"data/{args.dataset}_ans/{args.model_name_or_path.split('/')[-1]}/{args.adapter_name_or_path.split('/')[-1]}.jsonl"
+    save_name = f"data/{args.dataset}_ans/{args.model_name_or_path.split('/')[-1]}"
+    if args.adapter_name_or_path:
+        save_name += f"_{args.adapter_name_or_path.split('/')[-1]}"
+    save_name += f".jsonl"
 
     vllm_infer(
         model_name_or_path=args.model_name_or_path,
@@ -83,7 +86,9 @@ if __name__ == "__main__":
             outfile.write(json.dumps(new_data, ensure_ascii=False) + '\n')
     print(f"Processed data saved to {output_file}")
 
-    dataset = f"{args.dataset}-{args.adapter_name_or_path.split('/')[-1]}"
+    dataset = f"{args.dataset}"
+    if args.adapter_name_or_path:
+        dataset += f"-{args.model_name_or_path.split('/')[-1]}"
     update_json_field("data/dataset_info.json", dataset, {"file_name": str(output_file).replace("data/", "")})
 
     save_name = f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}/{args.adapter_name_or_path.split('/')[-1]}.jsonl"
