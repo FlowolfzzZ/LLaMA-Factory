@@ -91,7 +91,10 @@ if __name__ == "__main__":
         dataset += f"-{args.model_name_or_path.split('/')[-1]}"
     update_json_field("data/dataset_info.json", dataset, {"file_name": str(output_file).replace("data/", "")})
 
-    save_name = f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}/{args.adapter_name_or_path.split('/')[-1]}.jsonl"
+    if args.adapter_name_or_path:
+        save_name = f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}/{args.adapter_name_or_path.split('/')[-1]}.jsonl"
+    else:
+        save_name = f"saves/{args.model_name_or_path.split('/')[-1]}-{args.dataset}.jsonl"
     vllm_infer(
         model_name_or_path="/home/lizijian/Models/Llama-Guard-3-8B",
         template="llama3_safetycheck",
