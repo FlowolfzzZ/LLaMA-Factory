@@ -86,9 +86,7 @@ if __name__ == "__main__":
             outfile.write(json.dumps(new_data, ensure_ascii=False) + '\n')
     print(f"Processed data saved to {output_file}")
 
-    dataset = f"{args.dataset}"
-    if args.adapter_name_or_path:
-        dataset += f"-{args.model_name_or_path.split('/')[-1]}"
+    dataset = f"{args.dataset}-{args.model_name_or_path.split('/')[-1]}"
     update_json_field("data/dataset_info.json", dataset, {"file_name": str(output_file).replace("data/", "")})
 
     if args.adapter_name_or_path:
