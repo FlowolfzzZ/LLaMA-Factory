@@ -5,8 +5,17 @@
   "gsm8k": {
     "file_name": "gsm8k/main/train-00000-of-00001.json"
   },
+  "hendrycks_math": {
+    "file_name": "hendrycks_math/hendrycks_math.json"
+  },
   "numinamath-cot": {
     "file_name": "NuminaMath-CoT/data/train-00000-of-00005-sample-10000.json"
+  },
+  "numinamath-cot_fft": {
+    "file_name": "NuminaMath-CoT/data/train-00000-of-00005-sample-20000.json"
+  },
+  "code-alpaca": {
+    "file_name": "code_alpaca_20k.json"
   },
   "health_care_magic": {
     "file_name": "HealthCareMagic-100k-sample-10000.json"
@@ -14,11 +23,14 @@
   "saferpaca": {
     "file_name": "safety_only_data_Instructions.json"
   },
+  "saferpaca_fft": {
+    "file_name": "saferpaca_Instructions_2000.json"
+  },
   "directharm4": {
-    "file_name": "DirectHarm4/test.json",
-    "columns": {
-      "prompt": "instruction"
-    }
+    "file_name": "DirectHarm4/test.json"
+  },
+  "directharm4_hexphi": {
+    "file_name": "directharm4_hexphi.json"
   },
   "hex-phi": {
     "file_name": "HEx-PHI/test.json",
